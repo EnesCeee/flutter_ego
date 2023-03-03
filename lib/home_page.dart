@@ -34,6 +34,21 @@ class _HomePageViewState extends State<HomePageView> {
     fetchGetItemsScrape();
   }
 
+  void searchFilter(String query) {
+    if (_items != null) {
+      final suggestions = _items?.where((hat) {
+        final hatAdi = hat.adi.toLowerCase();
+        final hatNumarasi = hat.numarasi.toLowerCase();
+        final input = query.toLowerCase();
+        return hatAdi.contains(input) || hatNumarasi.contains(input);
+      }).toList();
+
+      setState(() {
+        _items = suggestions;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,13 +71,13 @@ class _HomePageViewState extends State<HomePageView> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: _items?.length??0,
+                    itemCount: _items?.length ?? 0,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(_items?[index].adi??""),
-                        subtitle: Text(_items?[index].numarasi??""),
-                        trailing: Text(_items?[index].turu??""),
-                        leading: Text(_items?[index].uzunlugu??""),
+                        title: Text(_items?[index].adi ?? ""),
+                        subtitle: Text(_items?[index].numarasi ?? ""),
+                        trailing: Text(_items?[index].turu ?? ""),
+                        leading: Text(_items?[index].uzunlugu ?? ""),
                       );
                     },
                   ),
