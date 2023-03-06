@@ -15,9 +15,10 @@ class Scrape implements IScrape {
     if (response.statusCode == 200) {
       final document = parse(response.body);
       final table = document.getElementsByTagName('table')[0];
-      for (var row in table.getElementsByTagName('tr')) {
-        final cells = row.getElementsByTagName('td');
-        if (cells.isNotEmpty) {
+      final rows = table.getElementsByTagName('tr');
+      for (var i = 1; i < rows.length; i++) {
+        final cells = rows[i].getElementsByTagName('td');
+        if (cells.isNotEmpty&&cells.length>=4) {
           final hatNumarasi = cells[0].text;
           final hatAdi = cells[1].text;
           final hatTuru = cells[2].text;

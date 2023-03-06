@@ -45,17 +45,21 @@ dependencies:
   #http parser
   http_parser: ^4.0.2
 
+  #state manager
+  flutter_mobx: ^2.0.6+5
+
+  #flutter map
+  flutter_map: ^3.1.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
+  
   flutter_lints: ^2.0.0
-
+  mobx_codegen: ^2.1.1
+  build_runner: ^2.3.3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
