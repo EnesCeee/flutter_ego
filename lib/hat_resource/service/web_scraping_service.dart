@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
-import 'hat_model.dart';
+import '../model/hat_model.dart';
 
 abstract class IScrape {
   Future<List<HatModel>> scrapeWebsite();

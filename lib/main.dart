@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'view/home_view.dart';
+import 'hat_resource/view/home_view.dart';
 
 void main() {
   runApp(const MyApp());

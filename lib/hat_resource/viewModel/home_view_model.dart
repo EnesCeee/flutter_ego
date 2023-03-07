@@ -1,5 +1,5 @@
-import '../web_scrapping/hat_model.dart';
-import '../web_scrapping/web_scraping_service.dart';
+import '../model/hat_model.dart';
+import '../service/web_scraping_service.dart';
 import 'package:mobx/mobx.dart';
 part 'home_view_model.g.dart';
 
