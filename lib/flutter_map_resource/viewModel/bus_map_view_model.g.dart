@@ -25,14 +25,6 @@ mixin _$BusMapViewModel on _BusMapViewModelBase, Store {
     });
   }
 
-  late final _$getLocationAsyncAction =
-      AsyncAction('_BusMapViewModelBase.getLocation', context: context);
-
-  @override
-  Future<void> getLocation() {
-    return _$getLocationAsyncAction.run(() => super.getLocation());
-  }
-
   @override
   String toString() {
     return '''

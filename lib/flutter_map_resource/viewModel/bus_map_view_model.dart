@@ -23,7 +23,7 @@ abstract class _BusMapViewModelBase with Store, ProjectDioMixin {
   void initState() {
     busService = BusService(ProjectNetworkManager.instance.service);
     fetch();
-    getLocation();
+    // getLocation();
   }
 
   Future<void> fetch() async {
@@ -32,11 +32,10 @@ abstract class _BusMapViewModelBase with Store, ProjectDioMixin {
     changeLoading();
   }
 
-  @action
-  Future<void> getLocation() async {
-    Location location = Location();
-    await location.getCurrentLocation();
-  }
-  
+  // @action
+  // Future<void> getLocation() async {
+  //   Location location = Location();
+  //   await location.getCurrentLocation();
+  // }
 
 }

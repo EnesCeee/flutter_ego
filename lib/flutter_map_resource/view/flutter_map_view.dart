@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:latlong2/latlong.dart';
 import '../viewModel/bus_map_view_model.dart';
 
 class FlutterMapView extends StatefulWidget {
@@ -15,44 +13,21 @@ class FlutterMapView extends StatefulWidget {
 
 class _FlutterMapViewState extends State<FlutterMapView> {
   final _busMapViewModel = BusMapViewModel();
-  final MapController _mapController = MapController();
-  StreamSubscription<Position>? _positionStreamSubscription;
-  List<Marker> userMarkers = [];
+  late FollowOnLocationUpdate _followOnLocationUpdate;
+  late StreamController<double?> _followCurrentLocationStreamController;
 
   @override
   void initState() {
     super.initState();
     _busMapViewModel.initState();
-    getListenLocation();
+    _followOnLocationUpdate = FollowOnLocationUpdate.always;
+    _followCurrentLocationStreamController = StreamController<double?>();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _positionStreamSubscription?.cancel();
-  }
-
-  Future<void> getListenLocation() async {
-    _positionStreamSubscription = Geolocator.getPositionStream(
-      locationSettings: const LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 10),
-    ).listen((Position position) {
-      LatLng latLng = LatLng(position.latitude, position.longitude);
-      _mapController.move(latLng, 13.0);
-      Marker marker = Marker(
-        width: 80.0,
-        height: 80.0,
-        point: latLng,
-        builder: (ctx) => const Icon(
-          Icons.location_on_rounded,
-          size: 50.0,
-          color: Colors.red,
-        ),
-      );
-      setState(() {
-        userMarkers.clear();
-        userMarkers.add(marker);
-      });
-    });
+    _followCurrentLocationStreamController.close();
   }
 
   @override
@@ -65,14 +40,34 @@ class _FlutterMapViewState extends State<FlutterMapView> {
           children: [
             Flexible(
               child: FlutterMap(
-                mapController: _mapController,
                 options: MapOptions(
                   zoom: 5,
+                  onPositionChanged: (MapPosition position, bool hasGesture) {
+                    if (hasGesture && _followOnLocationUpdate != FollowOnLocationUpdate.never) {
+                      setState(
+                        () => _followOnLocationUpdate = FollowOnLocationUpdate.never,
+                      );
+                    }
+                  },
                 ),
                 nonRotatedChildren: [
-                  AttributionWidget.defaultWidget(
-                    source: 'OpenStreetMap contributors',
-                    onSourceTapped: () {},
+                  Positioned(
+                    right: 20,
+                    bottom: 20,
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        // Follow the location marker on the map when location updated until user interact with the map.
+                        setState(
+                          () => _followOnLocationUpdate = FollowOnLocationUpdate.always,
+                        );
+                        // Follow the location marker on the map and zoom the map to level 18.
+                        _followCurrentLocationStreamController.add(18);
+                      },
+                      child: const Icon(
+                        Icons.my_location,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
                 children: [
@@ -81,7 +76,10 @@ class _FlutterMapViewState extends State<FlutterMapView> {
                     userAgentPackageName: 'dev.fleaflet.flutter_map.example',
                   ),
                   // MarkerLayer(markers: userMarkers),
-                  userLocation()
+                  CurrentLocationLayer(
+                    followCurrentLocationStream: _followCurrentLocationStreamController.stream,
+                    followOnLocationUpdate: _followOnLocationUpdate,
+                  ),
                 ],
               ),
             ),
@@ -90,24 +88,4 @@ class _FlutterMapViewState extends State<FlutterMapView> {
       ),
     );
   }
-}
-
-Widget userLocation() {
-  return CurrentLocationLayer(
-    followOnLocationUpdate: FollowOnLocationUpdate.always,
-    turnOnHeadingUpdate: TurnOnHeadingUpdate.always,
-    style: LocationMarkerStyle(
-      marker: const DefaultLocationMarker(
-        child: Icon(
-          Icons.navigation,
-          color: Colors.white,
-        ),
-      ),
-      markerSize: const Size(30, 30),
-      accuracyCircleColor: Colors.green.withOpacity(0.1),
-      headingSectorColor: Colors.green.withOpacity(0.8),
-      markerDirection: MarkerDirection.heading,
-    ),
-    moveAnimationDuration: Duration.zero,
-  );
 }
