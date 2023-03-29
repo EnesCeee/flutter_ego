@@ -25,38 +25,6 @@ mixin _$BusMapViewModel on _BusMapViewModelBase, Store {
     });
   }
 
-  late final _$latitudeAtom =
-      Atom(name: '_BusMapViewModelBase.latitude', context: context);
-
-  @override
-  double? get latitude {
-    _$latitudeAtom.reportRead();
-    return super.latitude;
-  }
-
-  @override
-  set latitude(double? value) {
-    _$latitudeAtom.reportWrite(value, super.latitude, () {
-      super.latitude = value;
-    });
-  }
-
-  late final _$longitudeAtom =
-      Atom(name: '_BusMapViewModelBase.longitude', context: context);
-
-  @override
-  double? get longitude {
-    _$longitudeAtom.reportRead();
-    return super.longitude;
-  }
-
-  @override
-  set longitude(double? value) {
-    _$longitudeAtom.reportWrite(value, super.longitude, () {
-      super.longitude = value;
-    });
-  }
-
   late final _$getLocationAsyncAction =
       AsyncAction('_BusMapViewModelBase.getLocation', context: context);
 
@@ -68,9 +36,7 @@ mixin _$BusMapViewModel on _BusMapViewModelBase, Store {
   @override
   String toString() {
     return '''
-isLoading: ${isLoading},
-latitude: ${latitude},
-longitude: ${longitude}
+isLoading: ${isLoading}
     ''';
   }
 }

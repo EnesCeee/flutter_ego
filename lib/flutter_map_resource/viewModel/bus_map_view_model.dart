@@ -1,8 +1,8 @@
 import 'package:flutter_ego/flutter_map_resource/model/bus_model.dart';
 import 'package:flutter_ego/product/service/location.dart';
 import 'package:flutter_ego/product/service/project_dio.dart';
+import 'package:flutter_ego/product/service/project_network_manager.dart';
 import 'package:mobx/mobx.dart';
-
 import '../service/bus_service.dart';
 part 'bus_map_view_model.g.dart';
 
@@ -15,17 +15,14 @@ abstract class _BusMapViewModelBase with Store, ProjectDioMixin {
 
   @observable
   bool isLoading = false;
-  @observable
-  double? latitude;
-  @observable
-  double? longitude;
 
   void changeLoading() {
     isLoading = !isLoading;
   }
 
   void initState() {
-    busService = BusService(service);
+    busService = BusService(ProjectNetworkManager.instance.service);
+    fetch();
     getLocation();
   }
 
@@ -39,9 +36,7 @@ abstract class _BusMapViewModelBase with Store, ProjectDioMixin {
   Future<void> getLocation() async {
     Location location = Location();
     await location.getCurrentLocation();
-    latitude = location.latitude;
-    longitude = location.longitude;
   }
-
   
+
 }
