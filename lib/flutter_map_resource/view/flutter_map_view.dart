@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:latlong2/latlong.dart';
 import '../viewModel/bus_map_view_model.dart';
 
 class FlutterMapView extends StatefulWidget {
@@ -15,6 +16,7 @@ class _FlutterMapViewState extends State<FlutterMapView> {
   final _busMapViewModel = BusMapViewModel();
   late FollowOnLocationUpdate _followOnLocationUpdate;
   late StreamController<double?> _followCurrentLocationStreamController;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -22,12 +24,16 @@ class _FlutterMapViewState extends State<FlutterMapView> {
     _busMapViewModel.initState();
     _followOnLocationUpdate = FollowOnLocationUpdate.always;
     _followCurrentLocationStreamController = StreamController<double?>();
+    _timer = Timer.periodic(const Duration(seconds: 50), (timer) {
+      _busMapViewModel.fetch(widget.hatNumber);
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
     _followCurrentLocationStreamController.close();
+    _timer?.cancel();
   }
 
   @override
@@ -75,7 +81,15 @@ class _FlutterMapViewState extends State<FlutterMapView> {
                     urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                     userAgentPackageName: 'dev.fleaflet.flutter_map.example',
                   ),
-                  // MarkerLayer(markers: userMarkers),
+                  MarkerLayer(
+                      markers: _busMapViewModel.buses.map(
+                    (e) {
+                      return Marker(
+                        point: LatLng(e.lat as double, e.lng as double),
+                        builder: (context) => const FlutterLogo(),
+                      );
+                    },
+                  ).toList()),
                   CurrentLocationLayer(
                     followCurrentLocationStream: _followCurrentLocationStreamController.stream,
                     followOnLocationUpdate: _followOnLocationUpdate,

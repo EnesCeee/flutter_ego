@@ -5,19 +5,19 @@ import 'package:flutter_ego/flutter_map_resource/model/bus_model.dart';
 abstract class IBusService {
   IBusService(this.dio);
   final Dio dio;
-  Future<BusModel?> fetchBusItem();
+  Future<BusModel?> fetchBusItem(String hatNumber);
 }
 
 class BusService extends IBusService {
   BusService(super.dio);
 
   @override
-  Future<BusModel?> fetchBusItem() async {
-    final response = await dio.get("487");
+  Future<BusModel?> fetchBusItem(String hatNumber) async {
+    final response = await dio.get(hatNumber);
 
     if (response.statusCode == HttpStatus.ok) {
       final jsonBody = response.data;
-      if (jsonBody is Map<String,dynamic>) {
+      if (jsonBody is Map<String, dynamic>) {
         return BusModel.fromJson(jsonBody);
       }
     }

@@ -70,7 +70,6 @@ class _HomePageViewState extends State<HomePageView> {
                               title: Text(_homeViewModel.filterSearch?[index].adi ?? ""),
                               subtitle: Text(_homeViewModel.filterSearch?[index].numarasi ?? ""),
                               trailing: Text(_homeViewModel.filterSearch?[index].turu ?? ""),
-                              leading: Text(_homeViewModel.filterSearch?[index].uzunlugu ?? ""),
                             ),
                           );
                         },
