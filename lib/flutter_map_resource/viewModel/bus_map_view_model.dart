@@ -8,7 +8,7 @@ class BusMapViewModel = _BusMapViewModelBase with _$BusMapViewModel;
 
 abstract class _BusMapViewModelBase with Store {
   late final IBusService busService;
-  
+
   @observable
   List<Table> buses = [];
 
@@ -27,8 +27,7 @@ abstract class _BusMapViewModelBase with Store {
   @action
   Future<void> fetch(String hatNumber) async {
     changeLoading();
-    buses = (await busService.fetchBusItem(hatNumber))?.table ?? [];
+    buses = (await busService.fetchBusItem(hatNumber)) ?? [];
     changeLoading();
   }
-
 }

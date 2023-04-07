@@ -1,11 +1,41 @@
 class BusModel {
+  List<Data>? data;
+
+  BusModel({this.data});
+
+  BusModel.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Data {
   List<Table>? table;
   String? status;
   String? message;
 
-  BusModel({this.table, this.status, this.message});
+  Data({this.table, this.status, this.message});
 
-  BusModel.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
+     if (json['data'] != null) {
+      
+      table = <Table>[];
+      json['table'].forEach((v) {
+        table!.add(new Table.fromJson(v));
+      });
+    }
     if (json['table'] != null) {
       table = <Table>[];
       json['table'].forEach((v) {

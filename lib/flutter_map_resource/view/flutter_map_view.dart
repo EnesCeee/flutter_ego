@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:latlong2/latlong.dart';
 import '../viewModel/bus_map_view_model.dart';
 
@@ -24,7 +25,7 @@ class _FlutterMapViewState extends State<FlutterMapView> {
     _busMapViewModel.initState();
     _followOnLocationUpdate = FollowOnLocationUpdate.always;
     _followCurrentLocationStreamController = StreamController<double?>();
-    _timer = Timer.periodic(const Duration(seconds: 50), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 15), (timer) {
       _busMapViewModel.fetch(widget.hatNumber);
     });
   }
@@ -47,7 +48,7 @@ class _FlutterMapViewState extends State<FlutterMapView> {
             Flexible(
               child: FlutterMap(
                 options: MapOptions(
-                  zoom: 5,
+                  zoom: 10,
                   onPositionChanged: (MapPosition position, bool hasGesture) {
                     if (hasGesture && _followOnLocationUpdate != FollowOnLocationUpdate.never) {
                       setState(
@@ -66,8 +67,8 @@ class _FlutterMapViewState extends State<FlutterMapView> {
                         setState(
                           () => _followOnLocationUpdate = FollowOnLocationUpdate.always,
                         );
-                        // Follow the location marker on the map and zoom the map to level 18.
-                        _followCurrentLocationStreamController.add(18);
+                        // Follow the location marker on the map and zoom the map to level 20.
+                        _followCurrentLocationStreamController.add(15);
                       },
                       child: const Icon(
                         Icons.my_location,
@@ -81,15 +82,19 @@ class _FlutterMapViewState extends State<FlutterMapView> {
                     urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                     userAgentPackageName: 'dev.fleaflet.flutter_map.example',
                   ),
-                  MarkerLayer(
-                      markers: _busMapViewModel.buses.map(
-                    (e) {
-                      return Marker(
-                        point: LatLng(e.lat as double, e.lng as double),
-                        builder: (context) => const FlutterLogo(),
-                      );
-                    },
-                  ).toList()),
+                  Observer(
+                    builder: (context) => MarkerLayer(
+                        markers: _busMapViewModel.buses.skip(1).map(
+                      (e) {
+                        return Marker(
+                          height: 30,
+                          width: 30,
+                          point: LatLng(double.parse(e.lat!), double.parse(e.lng!)),
+                          builder: (context) => const BusWidget(),
+                        );
+                      },
+                    ).toList()),
+                  ),
                   CurrentLocationLayer(
                     followCurrentLocationStream: _followCurrentLocationStreamController.stream,
                     followOnLocationUpdate: _followOnLocationUpdate,
@@ -100,6 +105,23 @@ class _FlutterMapViewState extends State<FlutterMapView> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class BusWidget extends StatelessWidget {
+  const BusWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      backgroundColor: Colors.white,
+      child: const Icon(
+        Icons.directions_bus,
+        color: Colors.redAccent,
+        size: 30,
+      ),
+      onPressed: () {},
     );
   }
 }
