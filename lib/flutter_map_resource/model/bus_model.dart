@@ -118,6 +118,8 @@ class Table {
     konum = json['konum'];
   }
 
+  get busNo => null;
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['arac_no'] = this.aracNo;

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'flutter_map_view.dart';
 
 class ExamplePopup extends StatefulWidget {
-  final Marker marker;
-
+  final BusMarker marker;
   const ExamplePopup(this.marker, {Key? key}) : super(key: key);
 
   @override
@@ -11,32 +10,9 @@ class ExamplePopup extends StatefulWidget {
 }
 
 class _ExamplePopupState extends State<ExamplePopup> {
-  final List<IconData> _icons = [
-    Icons.star_border,
-    Icons.star_half,
-    Icons.star
-  ];
-  int _currentIcon = 0;
-
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: () => setState(() {
-          _currentIcon = (_currentIcon + 1) % _icons.length;
-        }),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 10),
-              child: Icon(_icons[_currentIcon]),
-            ),
-            _cardDescription(context),
-          ],
-        ),
-      ),
-    );
+    return Card(child: _cardDescription(context));
   }
 
   Widget _cardDescription(BuildContext context) {
@@ -48,9 +24,9 @@ class _ExamplePopupState extends State<ExamplePopup> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             const Text(
-              'Popup for a marker!',
+              'Otobüs Detaylari!',
               overflow: TextOverflow.fade,
               softWrap: false,
               style: TextStyle(
@@ -64,7 +40,23 @@ class _ExamplePopupState extends State<ExamplePopup> {
               style: const TextStyle(fontSize: 12.0),
             ),
             Text(
-              'Marker size: ${widget.marker.width}, ${widget.marker.height}',
+              'Plaka No: ${widget.marker.plakaNo},',
+              style: const TextStyle(fontSize: 12.0),
+            ),
+            Text(
+              'Detay: ${widget.marker.detay}',
+              style: const TextStyle(fontSize: 12.0),
+            ),
+            Text(
+              'Hiz: ${widget.marker.hiz}',
+              style: const TextStyle(fontSize: 12.0),
+            ),
+            Text(
+              'Konum: ${widget.marker.konum}',
+              style: const TextStyle(fontSize: 12.0),
+            ),
+            Text(
+              'Doluluk: ${widget.marker.doluluk}',
               style: const TextStyle(fontSize: 12.0),
             ),
           ],
