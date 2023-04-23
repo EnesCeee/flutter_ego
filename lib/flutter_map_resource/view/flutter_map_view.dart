@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:latlong2/latlong.dart';
 import '../viewModel/bus_map_view_model.dart';
+import 'example_popup.dart';
 
 class FlutterMapView extends StatefulWidget {
   const FlutterMapView({super.key, required this.hatNumber});
@@ -15,16 +16,14 @@ class FlutterMapView extends StatefulWidget {
 
 class _FlutterMapViewState extends State<FlutterMapView> {
   final _busMapViewModel = BusMapViewModel();
-  late FollowOnLocationUpdate _followOnLocationUpdate;
-  late StreamController<double?> _followCurrentLocationStreamController;
   Timer? _timer;
+  final PopupController _popupLayerController = PopupController();
 
   @override
   void initState() {
     super.initState();
     _busMapViewModel.initState();
-    _followOnLocationUpdate = FollowOnLocationUpdate.always;
-    _followCurrentLocationStreamController = StreamController<double?>();
+
     _timer = Timer.periodic(const Duration(seconds: 15), (timer) {
       _busMapViewModel.fetch(widget.hatNumber);
     });
@@ -33,9 +32,9 @@ class _FlutterMapViewState extends State<FlutterMapView> {
   @override
   void dispose() {
     super.dispose();
-    _followCurrentLocationStreamController.close();
     _timer?.cancel();
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -48,28 +47,15 @@ class _FlutterMapViewState extends State<FlutterMapView> {
             Flexible(
               child: FlutterMap(
                 options: MapOptions(
+                  onTap: (_, __) => _popupLayerController.hideAllPopups(),
                   zoom: 10,
-                  onPositionChanged: (MapPosition position, bool hasGesture) {
-                    if (hasGesture && _followOnLocationUpdate != FollowOnLocationUpdate.never) {
-                      setState(
-                        () => _followOnLocationUpdate = FollowOnLocationUpdate.never,
-                      );
-                    }
-                  },
                 ),
                 nonRotatedChildren: [
                   Positioned(
                     right: 20,
                     bottom: 20,
                     child: FloatingActionButton(
-                      onPressed: () {
-                        // Follow the location marker on the map when location updated until user interact with the map.
-                        setState(
-                          () => _followOnLocationUpdate = FollowOnLocationUpdate.always,
-                        );
-                        // Follow the location marker on the map and zoom the map to level 20.
-                        _followCurrentLocationStreamController.add(15);
-                      },
+                      onPressed: () {},
                       child: const Icon(
                         Icons.my_location,
                         color: Colors.white,
@@ -83,21 +69,19 @@ class _FlutterMapViewState extends State<FlutterMapView> {
                     userAgentPackageName: 'dev.fleaflet.flutter_map.example',
                   ),
                   Observer(
-                    builder: (context) => MarkerLayer(
-                        markers: _busMapViewModel.buses.skip(1).map(
-                      (e) {
-                        return Marker(
-                          height: 30,
-                          width: 30,
-                          point: LatLng(double.parse(e.lat!), double.parse(e.lng!)),
-                          builder: (context) => const BusWidget(),
-                        );
-                      },
-                    ).toList()),
-                  ),
-                  CurrentLocationLayer(
-                    followCurrentLocationStream: _followCurrentLocationStreamController.stream,
-                    followOnLocationUpdate: _followOnLocationUpdate,
+                    builder: (context) => PopupMarkerLayerWidget(
+                        options: PopupMarkerLayerOptions(
+                            popupController: _popupLayerController,
+                            markers: busMarkers(),
+                            markerRotateAlignment: PopupMarkerLayerOptions.rotationAlignmentFor(AnchorAlign.top),
+                            popupBuilder: (BuildContext context, Marker marker) => ExamplePopup(
+                                  marker,
+                                ),
+                            selectedMarkerBuilder: (context, marker) => const Icon(
+                                  Icons.location_on,
+                                  size: 40,
+                                  color: Colors.red,
+                                ))),
                   ),
                 ],
               ),
@@ -107,21 +91,17 @@ class _FlutterMapViewState extends State<FlutterMapView> {
       ),
     );
   }
-}
 
-class BusWidget extends StatelessWidget {
-  const BusWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      backgroundColor: Colors.white,
-      child: const Icon(
-        Icons.directions_bus,
-        color: Colors.redAccent,
-        size: 30,
-      ),
-      onPressed: () {},
-    );
+  List<Marker> busMarkers() {
+    return [
+      for (var e in _busMapViewModel.buses.skip(1))
+        Marker(
+          point: LatLng(double.parse(e.lat!), double.parse(e.lng!)),
+          width: 30,
+          height: 30,
+          builder: (_) => const Icon(Icons.location_on, size: 40),
+          anchorPos: AnchorPos.align(AnchorAlign.top),
+        ),
+    ];
   }
 }
