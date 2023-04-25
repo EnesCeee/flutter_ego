@@ -25,39 +25,34 @@ class _ExamplePopupState extends State<ExamplePopup> {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+            Text(
               'Otobüs Detaylari!',
               overflow: TextOverflow.fade,
               softWrap: false,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14.0,
-              ),
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(),
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
-            Text(
-              'Position: ${widget.marker.point.latitude}, ${widget.marker.point.longitude}',
-              style: const TextStyle(fontSize: 12.0),
-            ),
+            Text('Position: ${widget.marker.point.latitude}, ${widget.marker.point.longitude}',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith()),
             Text(
               'Plaka No: ${widget.marker.plakaNo},',
-              style: const TextStyle(fontSize: 12.0),
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(),
             ),
             Text(
               'Detay: ${widget.marker.detay}',
-              style: const TextStyle(fontSize: 12.0),
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(),
             ),
             Text(
               'Hiz: ${widget.marker.hiz}',
-              style: const TextStyle(fontSize: 12.0),
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(),
             ),
             Text(
               'Konum: ${widget.marker.konum}',
-              style: const TextStyle(fontSize: 12.0),
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(),
             ),
             Text(
               'Doluluk: ${widget.marker.doluluk}',
-              style: const TextStyle(fontSize: 12.0),
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(),
             ),
           ],
         ),

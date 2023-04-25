@@ -6,7 +6,7 @@ import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:latlong2/latlong.dart';
 import '../viewModel/bus_map_view_model.dart';
-import 'example_popup.dart';
+import 'bus_popup.dart';
 
 class FlutterMapView extends StatefulWidget {
   const FlutterMapView({super.key, required this.hatNumber});
@@ -44,7 +44,7 @@ class _FlutterMapViewState extends State<FlutterMapView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Map')),
+      appBar: AppBar(title: const Text('Otobüs Nerede? - Ankara')),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -123,7 +123,7 @@ class _FlutterMapViewState extends State<FlutterMapView> {
           hiz: e.hiz,
           doluluk: e.doluluk,
           aracNo: e.aracNo, // assign the busNo property here
-          point: LatLng(double.parse(e.lat!), double.parse(e.lng!)),
+          point: LatLng(double.parse(e.lat ?? '0'), double.parse(e.lng ?? '0')),
           width: 30,
           height: 30,
           builder: (_) => const Icon(Icons.directions_bus_rounded, size: 40),

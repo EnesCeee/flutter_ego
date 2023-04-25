@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
+import '../../product/widgets/loading_bar.dart';
 import '../viewModel/home_view_model.dart';
 import '../../flutter_map_resource/view/flutter_map_view.dart';
+import 'package:lottie/lottie.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({
@@ -12,42 +13,66 @@ class HomePageView extends StatefulWidget {
   State<HomePageView> createState() => _HomePageViewState();
 }
 
-class _HomePageViewState extends State<HomePageView> {
+class _HomePageViewState extends State<HomePageView> with TickerProviderStateMixin {
   final _homeViewModel = HomeViewModel();
+  late AnimationController _controller;
+  final String _lottieBusIcon = "assets/lottie_bus_icon.json";
   @override
   void initState() {
     super.initState();
     _homeViewModel.initState();
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        bottomOpacity: 0.5,
+        elevation: 4,
+        shadowColor: Colors.blueAccent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          ),
+        ),
+        title: const Text("Otobüs nerede? - Ankara"),
         actions: [
-          Observer(
-            builder: (context) {
-              return _homeViewModel.isLoading ? const CircularProgressIndicator() : const SizedBox();
+          Lottie.asset(
+            _lottieBusIcon,
+            controller: _controller,
+            onLoaded: (composition) {
+              _controller
+                ..duration = composition.duration
+                ..forward()
+                ..repeat();
             },
-          )
+          ),
         ],
-        title: const Text("Hat List"),
       ),
       body: Observer(
         builder: (context) {
           return _homeViewModel.isLoading
-              ? const CircularProgressIndicator()
+              ? LoadingBar(
+                  controller: _controller,
+                )
               : Column(
-                  children: <Widget>[
+                  children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(letterSpacing: 0.5),
                         onChanged: (value) {
                           _homeViewModel.searchFilter(value);
                         },
-                        decoration: const InputDecoration(
-                          hintText: "Search by Hat Numarasi or Hat Türü",
-                          border: OutlineInputBorder(),
+                        strutStyle: const StrutStyle(height: 1.5),
+                        cursorWidth: 3,
+                        cursorHeight: 30,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          hintText: "Hat Numarasi veya Hat Türü Giriniz",
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                         ),
                       ),
                     ),
@@ -56,6 +81,13 @@ class _HomePageViewState extends State<HomePageView> {
                         itemCount: _homeViewModel.filterSearch?.length ?? 0,
                         itemBuilder: (context, index) {
                           return Card(
+                            shadowColor: Colors.redAccent,
+                            elevation: 4,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(30),
+                              bottomRight: Radius.circular(30),
+                            )),
                             child: ListTile(
                               onTap: () {
                                 setState(() {
