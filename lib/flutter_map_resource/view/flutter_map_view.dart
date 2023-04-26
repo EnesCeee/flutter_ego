@@ -44,7 +44,17 @@ class _FlutterMapViewState extends State<FlutterMapView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Otobüs Nerede? - Ankara')),
+      appBar: AppBar(
+          bottomOpacity: 0.5,
+          elevation: 4,
+          shadowColor: Colors.blueAccent,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+          ),
+          title: const Text('Otobüs Nerede? - Ankara')),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -101,7 +111,7 @@ class _FlutterMapViewState extends State<FlutterMapView> {
                             selectedMarkerBuilder: (context, marker) => const Icon(
                                   Icons.directions_bus_rounded,
                                   size: 40,
-                                  color: Colors.red,
+                                  color: Colors.redAccent,
                                 ))),
                   ),
                 ],
@@ -126,7 +136,7 @@ class _FlutterMapViewState extends State<FlutterMapView> {
           point: LatLng(double.parse(e.lat ?? '0'), double.parse(e.lng ?? '0')),
           width: 30,
           height: 30,
-          builder: (_) => const Icon(Icons.directions_bus_rounded, size: 40),
+          builder: (_) => const Icon(Icons.directions_bus_rounded, size: 30),
           anchorPos: AnchorPos.align(AnchorAlign.top),
         ),
     ];
