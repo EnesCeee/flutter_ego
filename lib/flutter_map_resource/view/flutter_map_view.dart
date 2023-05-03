@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:latlong2/latlong.dart';
 import '../viewModel/bus_map_view_model.dart';
 import 'bus_popup.dart';
+import 'dart:math' as math;
 
 class FlutterMapView extends StatefulWidget {
   const FlutterMapView({super.key, required this.hatNumber});
@@ -102,17 +103,14 @@ class _FlutterMapViewState extends State<FlutterMapView> {
                   Observer(
                     builder: (context) => PopupMarkerLayerWidget(
                         options: PopupMarkerLayerOptions(
-                            popupController: _popupLayerController,
-                            markers: busMarkers(),
-                            markerRotateAlignment: PopupMarkerLayerOptions.rotationAlignmentFor(AnchorAlign.top),
-                            popupBuilder: (BuildContext context, Marker marker) => ExamplePopup(
-                                  marker as BusMarker,
-                                ),
-                            selectedMarkerBuilder: (context, marker) => const Icon(
-                                  Icons.directions_bus_rounded,
-                                  size: 40,
-                                  color: Colors.redAccent,
-                                ))),
+                      popupController: _popupLayerController,
+                      markers: busMarkers(),
+                      markerRotateAlignment: PopupMarkerLayerOptions.rotationAlignmentFor(AnchorAlign.top),
+                      popupBuilder: (BuildContext context, Marker marker) => ExamplePopup(
+                        marker as BusMarker,
+                      ),
+                      selectedMarkerBuilder: (context, marker) => marker.builder(context),
+                    )),
                   ),
                 ],
               ),
@@ -134,9 +132,16 @@ class _FlutterMapViewState extends State<FlutterMapView> {
           doluluk: e.doluluk,
           aracNo: e.aracNo, // assign the busNo property here
           point: LatLng(double.parse(e.lat ?? '0'), double.parse(e.lng ?? '0')),
-          width: 30,
-          height: 30,
-          builder: (_) => const Icon(Icons.directions_bus_rounded, size: 30),
+          width: 60,
+          height: 100,
+          builder: (context) {
+            // create a Transform.rotate widget that rotates the Icon widget
+            double rotation = double.parse(e.aci ?? "0"); // assume 0 if rotation data is not available
+            return Transform.rotate(
+              angle: rotation * math.pi / 180, // convert degrees to radians
+              child: Image.asset('assets/bus.png', width: 100, height: 100),
+            );
+          },
           anchorPos: AnchorPos.align(AnchorAlign.top),
         ),
     ];
@@ -150,6 +155,7 @@ class BusMarker extends Marker {
   String? hiz;
   String? doluluk;
   String? konum;
+
   BusMarker({
     required this.aracNo,
     required this.doluluk,
