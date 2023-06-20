@@ -61,16 +61,13 @@ Download from google play.
     
 ## Screenshots
 <img src="https://github.com/EnesCeee/flutter_ego/assets/86595661/1ffc93e8-7303-4ded-9c00-7f9ea4ef24f8" width="250" height="250">
-
-![bus](https://github.com/EnesCeee/flutter_ego/assets/86595661/1ffc93e8-7303-4ded-9c00-7f9ea4ef24f8)
-![unnamed](https://github.com/EnesCeee/flutter_ego/assets/86595661/465951a3-35c9-4d7c-b67a-b6a07dc6c141=250x250)
-![unnamed](https://github.com/EnesCeee/flutter_ego/assets/86595661/e38cfc8a-4095-470d-888e-cedfd1805e7c=250x250)
-![unnamed2](https://github.com/EnesCeee/flutter_ego/assets/86595661/45b4be1a-e946-4a80-a84a-5672410ac42a=250x250)
-![Screenshot_1683120887](https://github.com/EnesCeee/flutter_ego/assets/86595661/9efd0c6a-1c0f-4c37-91a8-1345978649b0=250x250)
-![Screenshot_1683120927](https://github.com/EnesCeee/flutter_ego/assets/86595661/7d1b7160-2e33-48e1-b7ea-da12afdf7d52=250x250)
-![Screenshot_1683120960](https://github.com/EnesCeee/flutter_ego/assets/86595661/4d8a07df-503d-47ea-81f7-aac5c07aa0b2=250x250)
-![Screenshot_1683121027](https://github.com/EnesCeee/flutter_ego/assets/86595661/74d6b28d-2b0c-4a07-8003-ed8aa47f34a7=250x250)
-
+<img src="https://github.com/EnesCeee/flutter_ego/assets/86595661/465951a3-35c9-4d7c-b67a-b6a07dc6c141" width="250" height="250">
+<img src="https://github.com/EnesCeee/flutter_ego/assets/86595661/e38cfc8a-4095-470d-888e-cedfd1805e7c" width="250" height="250">
+<img src="https://github.com/EnesCeee/flutter_ego/assets/86595661/45b4be1a-e946-4a80-a84a-5672410ac42a=250x250" width="250" height="250">
+<img src="https://github.com/EnesCeee/flutter_ego/assets/86595661/9efd0c6a-1c0f-4c37-91a8-1345978649b0" width="250" height="250">
+<img src="https://github.com/EnesCeee/flutter_ego/assets/86595661/7d1b7160-2e33-48e1-b7ea-da12afdf7d52" width="250" height="250">
+<img src="https://github.com/EnesCeee/flutter_ego/assets/86595661/4d8a07df-503d-47ea-81f7-aac5c07aa0b2" width="250" height="250">
+<img src="https://github.com/EnesCeee/flutter_ego/assets/86595661/74d6b28d-2b0c-4a07-8003-ed8aa47f34a7" width="250" height="250">
 
 
 
