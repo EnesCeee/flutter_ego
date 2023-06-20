@@ -60,7 +60,7 @@ Download from google play.
 ```
     
 ## Screenshots
-<img src="https://github.com/EnesCeee/flutter_ego/assets/86595661/1ffc93e8-7303-4ded-9c00-7f9ea4ef24f8" width="50" height="50">
+<img src="https://github.com/EnesCeee/flutter_ego/assets/86595661/1ffc93e8-7303-4ded-9c00-7f9ea4ef24f8" width="250" height="250">
 
 ![bus](https://github.com/EnesCeee/flutter_ego/assets/86595661/1ffc93e8-7303-4ded-9c00-7f9ea4ef24f8)
 ![unnamed](https://github.com/EnesCeee/flutter_ego/assets/86595661/465951a3-35c9-4d7c-b67a-b6a07dc6c141=250x250)
