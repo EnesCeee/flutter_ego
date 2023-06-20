@@ -59,16 +59,23 @@ Download from google play.
  https://play.google.com/store/apps/details?id=com.ceylanenes.otobusnerede
 ```
     
-## Ekran Görüntüleri
+## Screenshots
 
-![Uygulama Ekran Görüntüsü](![Screenshot](screenshot.png)
-![Screenshot](screenshot.png)
-![Screenshot](screenshot.png)
-![Screenshot](screenshot.png)
-![Screenshot](screenshot.png)
+![Uygulama Ekran Görüntüsü]
+![bus](https://github.com/EnesCeee/flutter_ego/assets/86595661/1ffc93e8-7303-4ded-9c00-7f9ea4ef24f8)
+![unnamed](https://github.com/EnesCeee/flutter_ego/assets/86595661/465951a3-35c9-4d7c-b67a-b6a07dc6c141)
+![unnamed](https://github.com/EnesCeee/flutter_ego/assets/86595661/e38cfc8a-4095-470d-888e-cedfd1805e7c)
+![unnamed2](https://github.com/EnesCeee/flutter_ego/assets/86595661/45b4be1a-e946-4a80-a84a-5672410ac42a)
+![Screenshot_1683120887](https://github.com/EnesCeee/flutter_ego/assets/86595661/9efd0c6a-1c0f-4c37-91a8-1345978649b0)
+![Screenshot_1683120927](https://github.com/EnesCeee/flutter_ego/assets/86595661/7d1b7160-2e33-48e1-b7ea-da12afdf7d52)
+![Screenshot_1683120960](https://github.com/EnesCeee/flutter_ego/assets/86595661/4d8a07df-503d-47ea-81f7-aac5c07aa0b2)
+![Screenshot_1683121027](https://github.com/EnesCeee/flutter_ego/assets/86595661/74d6b28d-2b0c-4a07-8003-ed8aa47f34a7)
+
+
+
 
   
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![logo](https://github.com/EnesCeee/flutter_ego/assets/86595661/36c6ecdb-daac-4278-8295-8447da71689c)
 
     
 ## Used technologies
