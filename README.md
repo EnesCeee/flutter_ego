@@ -61,7 +61,7 @@ Download from google play.
     
 ## Screenshots
 
-![bus|250x250](https://github.com/EnesCeee/flutter_ego/assets/86595661/1ffc93e8-7303-4ded-9c00-7f9ea4ef24f8=250x250)
+![bus|50x50](https://github.com/EnesCeee/flutter_ego/assets/86595661/1ffc93e8-7303-4ded-9c00-7f9ea4ef24f8=250x250)
 ![unnamed](https://github.com/EnesCeee/flutter_ego/assets/86595661/465951a3-35c9-4d7c-b67a-b6a07dc6c141=250x250)
 ![unnamed](https://github.com/EnesCeee/flutter_ego/assets/86595661/e38cfc8a-4095-470d-888e-cedfd1805e7c=250x250)
 ![unnamed2](https://github.com/EnesCeee/flutter_ego/assets/86595661/45b4be1a-e946-4a80-a84a-5672410ac42a=250x250)
