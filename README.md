@@ -17,7 +17,7 @@ Bu mobil uygulama sayesinde, durak numaralarına ihtiyaç duymadan otobüslerin 
 #### Bring all items with web scraping
 
 ```http
-  Web Scrape /http://map.ego.gov.tr:8080/ego/hatListesi.aspx
+  Web Scrape /https://www.ego.gov.tr/AjaxData/HatListesi
 ```
 
 
