@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'flutter_map_view.dart';
+import '../../product/widgets/bus_marker.dart';
 
 class ExamplePopup extends StatefulWidget {
   final BusMarker marker;

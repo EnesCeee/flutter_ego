@@ -26,7 +26,7 @@ abstract class _HomeViewModelBase with Store {
   Future<void> fetchGetItemsScrape() async {
     changeLoading();
     items = await _scrape.scrapeWebsite();
-    filterSearch=await _scrape.scrapeWebsite();
+    filterSearch = await _scrape.scrapeWebsite();
     changeLoading();
   }
 

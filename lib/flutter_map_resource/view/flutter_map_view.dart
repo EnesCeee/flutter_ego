@@ -5,6 +5,7 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:latlong2/latlong.dart';
+import '../../product/widgets/bus_marker.dart';
 import '../viewModel/bus_map_view_model.dart';
 import 'bus_popup.dart';
 import 'dart:math' as math;
@@ -23,6 +24,7 @@ class _FlutterMapViewState extends State<FlutterMapView> {
   late MapController _mapController;
   late FollowOnLocationUpdate _followOnLocationUpdate;
   late StreamController<double?> _followCurrentLocationStreamController;
+  final String busImage = "assets/bus.png";
 
   @override
   void initState() {
@@ -105,6 +107,7 @@ class _FlutterMapViewState extends State<FlutterMapView> {
                         options: PopupMarkerLayerOptions(
                       popupController: _popupLayerController,
                       markers: busMarkers(),
+                      markerRotate: false,
                       markerRotateAlignment: PopupMarkerLayerOptions.rotationAlignmentFor(AnchorAlign.top),
                       popupBuilder: (BuildContext context, Marker marker) => ExamplePopup(
                         marker as BusMarker,
@@ -136,43 +139,14 @@ class _FlutterMapViewState extends State<FlutterMapView> {
           height: 100,
           builder: (context) {
             // create a Transform.rotate widget that rotates the Icon widget
-            double rotation = double.parse(e.aci ?? "0"); // assume 0 if rotation data is not available
+            final double rotation = double.parse(e.aci ?? "0"); // assume 0 if rotation data is not available
             return Transform.rotate(
               angle: rotation * math.pi / 180, // convert degrees to radians
-              child: Image.asset('assets/bus.png', width: 100, height: 100),
+              child: Image.asset(busImage, width: 100, height: 100),
             );
           },
           anchorPos: AnchorPos.align(AnchorAlign.top),
         ),
     ];
   }
-}
-
-class BusMarker extends Marker {
-  String? aracNo;
-  String? detay;
-  String? plakaNo;
-  String? hiz;
-  String? doluluk;
-  String? konum;
-
-  BusMarker({
-    required this.aracNo,
-    required this.doluluk,
-    required LatLng point,
-    required this.detay,
-    required this.plakaNo,
-    required this.hiz,
-    required this.konum,
-    required WidgetBuilder builder,
-    double width = 30.0,
-    double height = 30.0,
-    AnchorPos? anchorPos,
-  }) : super(
-          point: point,
-          builder: builder,
-          width: width,
-          height: height,
-          anchorPos: anchorPos,
-        );
 }
