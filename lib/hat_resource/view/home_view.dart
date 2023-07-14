@@ -76,6 +76,18 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                         ),
                       ),
                     ),
+                    const Card(
+                      shadowColor: Colors.redAccent,
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(5),
+                        bottomRight: Radius.circular(5),
+                      )),
+                      child: ListTile(
+                        title: Center(child: Text("(Hat Numarası)       -      HAT ADI")),
+                      ),
+                    ),
                     Expanded(
                       child: ListView.builder(
                         itemCount: _homeViewModel.filterSearch?.length ?? 0,
@@ -85,8 +97,8 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                             elevation: 4,
                             shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(30),
-                              bottomRight: Radius.circular(30),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
                             )),
                             child: ListTile(
                               onTap: () {
