@@ -100,8 +100,6 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                                 });
                               },
                               title: Text(_homeViewModel.filterSearch?[index].adi ?? ""),
-                              subtitle: Text(_homeViewModel.filterSearch?[index].numarasi ?? ""),
-                              trailing: Text(_homeViewModel.filterSearch?[index].turu ?? ""),
                             ),
                           );
                         },
