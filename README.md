@@ -45,7 +45,7 @@ lists the buses on that line on api id request
   
 ## Feedback
 
-If you have any feedback, please contact us at enesceylan.6699@hotmail.com.
+If you have any feedback, please contact us at enesceylan.6699@gmail.com.
 
   
 ## Lessons Learned
